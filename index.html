@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title>New Jagdamba Stone Suppliers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#1a1410;
+    color:#f5e6d3;
+}
+
+/* ================= LOADING ================= */
+
+#loading-screen{
+    position:fixed;
+    inset:0;
+    background:#1a1410;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    transition:opacity .8s ease, visibility .8s ease;
+}
+
+#loading-screen.hidden{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.loader{
+    width:60px;
+    height:60px;
+    border:4px solid #3a2a20;
+    border-top:4px solid #e8c98b;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+#loading-screen p{
+    margin-top:20px;
+    font-size:1.15rem;
+    letter-spacing:4px;
+    color:#e8c98b;
+    text-align:center;
+}
+
+/* ================= BACKGROUND ================= */
+
+#static-bg{
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 30%,#3a2a20,#0f0b09);
+    z-index:0;
+    display:none;
+}
+
+#static-bg::before{
+    content:"🏛️";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:25vw;
+    opacity:.06;
+}
+
+/* ================= 3D ================= */
+
+#canvas-container{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:1;
+}
+
+#canvas-container canvas{
+    display:block;
+    width:100%;
+    height:100%;
+}
+
+/* ================= UI ================= */
+
+#info-panel{
+    position:fixed;
+    inset:0;
+    z-index:10;
+    pointer-events:none;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    padding:25px 30px;
+
+    text-shadow:0 4px 30px rgba(0,0,0,.9);
+}
+
+/* HEADER */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.brand h1{
+    font-size:clamp(1.5rem,5vw,4rem);
+    font-weight:800;
+
+    background:linear-gradient(
+        135deg,
+        #e8c98b,
+        #f5e6d3,
+        #c29b5e
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.brand .tagline{
+    font-size:clamp(.7rem,1.2vw,1.2rem);
+    font-weight:300;
+    letter-spacing:2px;
+    color:#d4c4a8;
+    margin-top:-5px;
+}
+
+/* NAV */
+
+.nav-links{
+    display:flex;
+    gap:8px;
+
+    font-weight:600;
+
+    background:rgba(26,20,16,.7);
+    backdrop-filter:blur(10px);
+
+    padding:10px 18px;
+    border-radius:50px;
+
+    border:1px solid rgba(232,201,139,.25);
+
+    pointer-events:auto;
+
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.nav-links span{
+    cursor:pointer;
+    color:#d4c4a8;
+
+    padding:5px 9px;
+    border-radius:20px;
+
+    transition:.3s;
+}
+
+.nav-links span:hover{
+    color:#e8c98b;
+    background:rgba(232,201,139,.1);
+}
+
+/* CENTER CARD */
+
+.center-card{
+    align-self:center;
+
+    text-align:center;
+
+    background:rgba(20,15,12,.78);
+    backdrop-filter:blur(14px);
+
+    padding:25px 40px;
+
+    border-radius:24px;
+
+    border:1px solid rgba(232,201,139,.2);
+
+    box-shadow:0 20px 60px rgba(0,0,0,.8);
+
+    pointer-events:auto;
+
+    max-width:92%;
+    width:fit-content;
+
+    margin:auto;
+
+    transition:.3s;
+}
+
+.center-card .gst{
+    font-size:clamp(.8rem,1.1vw,1.2rem);
+    font-weight:600;
+    color:#e8c98b;
+    letter-spacing:2px;
+}
+
+.center-card .phone{
+    font-size:clamp(.9rem,1.4vw,1.5rem);
+    font-weight:700;
+    margin:8px 0;
+}
+
+.center-card .phone span{
+    margin:0 8px;
+
+    background:rgba(232,201,139,.08);
+
+    padding:5px 14px;
+
+    border-radius:30px;
+
+    display:inline-block;
+}
+
+.center-card .address{
+    font-size:clamp(.65rem,.9vw,.95rem);
+    opacity:.8;
+    font-weight:300;
+}
+
+/* PRODUCTS */
+
+.product-switcher{
+    display:flex;
+    gap:10px;
+
+    justify-content:center;
+
+    margin:15px 0 5px;
+
+    flex-wrap:wrap;
+}
+
+.product-switcher button{
+    padding:7px 18px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(232,201,139,.3);
+
+    background:rgba(0,0,0,.2);
+
+    color:#d4c4a8;
+
+    font-weight:600;
+    font-size:.8rem;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-family:'Poppins',sans-serif;
+}
+
+.product-switcher button:hover,
+.product-switcher button.active{
+    background:#e8c98b;
+    color:#1a1410;
+    border-color:#e8c98b;
+    transform:scale(1.05);
+}
+
+/* CTA */
+
+.cta-btn{
+    margin-top:15px;
+
+    padding:12px 40px;
+
+    border:none;
+
+    background:linear-gradient(
+        135deg,
+        #e8c98b,
+        #b8914a
+    );
+
+    color:#1a1410;
+
+    font-weight:800;
+    font-size:1rem;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 10px 30px rgba(232,201,139,.25);
+
+    font-family:'Poppins',sans-serif;
+}
+
+.cta-btn:hover{
+    transform:scale(1.05) translateY(-3px);
+    box-shadow:0 15px 40px rgba(232,201,139,.5);
+}
+
+/* FOOTER */
+
+.footer{
+    align-self:flex-end;
+
+    font-size:.75rem;
+
+    opacity:.4;
+
+    pointer-events:auto;
+
+    display:flex;
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+/* ================= MODE ================= */
+
+.mode-toggle{
+    position:fixed;
+
+    bottom:25px;
+    right:25px;
+
+    z-index:99;
+
+    pointer-events:auto;
+
+    background:rgba(20,15,12,.8);
+
+    backdrop-filter:blur(10px);
+
+    padding:8px 16px 8px 20px;
+
+    border-radius:50px;
+
+    border:1px solid rgba(232,201,139,.3);
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    font-size:.7rem;
+    font-weight:600;
+
+    color:#d4c4a8;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+.toggle-track{
+    width:42px;
+    height:22px;
+
+    background:#3a2a20;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    position:relative;
+
+    border:1px solid #5a4a3a;
+}
+
+.toggle-track .thumb{
+    width:18px;
+    height:18px;
+
+    background:#e8c98b;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    top:1px;
+    left:2px;
+
+    transition:.3s;
+}
+
+.toggle-track.active .thumb{
+    left:20px;
+    background:#6a5a4a;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px){
+
+    #info-panel{
+        padding:15px;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:center;
+        width:100%;
+    }
+
+    .brand{
+        text-align:center;
+    }
+
+    .brand h1{
+        font-size:1.35rem;
+        line-height:1.3;
+    }
+
+    .brand .tagline{
+        font-size:.65rem;
+        letter-spacing:1px;
+    }
+
+    .nav-links{
+        width:100%;
+        font-size:.7rem;
+        padding:6px 8px;
+        gap:3px;
+    }
+
+    .nav-links span{
+        padding:4px 6px;
+    }
+
+    .center-card{
+        width:100%;
+        padding:17px 12px;
+    }
+
+    .center-card .phone span{
+        display:block;
+        margin:4px 0;
+    }
+
+    .center-card .address{
+        line-height:1.5;
+    }
+
+    .product-switcher{
+        gap:6px;
+    }
+
+    .product-switcher button{
+        font-size:.65rem;
+        padding:5px 12px;
+    }
+
+    .cta-btn{
+        padding:10px 28px;
+        font-size:.85rem;
+    }
+
+    .footer{
+        font-size:.55rem;
+        gap:8px;
+        align-self:center;
+        justify-content:center;
+    }
+
+    .mode-toggle{
+        bottom:10px;
+        right:10px;
+        padding:5px 10px 5px 13px;
+        font-size:.55rem;
+    }
+
+    .toggle-track{
+        width:34px;
+        height:18px;
+    }
+
+    .toggle-track .thumb{
+        width:14px;
+        height:14px;
+    }
+
+    .toggle-track.active .thumb{
+        left:16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOADING ================= -->
+
+<div id="loading-screen">
+
+    <div class="loader"></div>
+
+    <p>⛰️ Loading Stone...</p>
+
+</div>
+
+
+<!-- ================= STATIC BACKGROUND ================= -->
+
+<div id="static-bg"></div>
+
+
+<!-- ================= 3D CONTAINER ================= -->
+
+<div id="canvas-container"></div>
+
+
+<!-- ================= UI ================= -->
+
+<div id="info-panel">
+
+    <div class="header">
+
+        <div class="brand">
+
+            <h1>🏛️ New Jagdamba Stone Suppliers</h1>
+
+            <div class="tagline">
+                ✦ All Kind of Stone Supplier & Contractor ✦
+            </div>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <span data-section="Home">🏠 Home</span>
+
+            <span data-section="Services">🪨 Services</span>
+
+            <span data-section="About">📖 About</span>
+
+            <span data-section="Contact">📞 Contact</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="center-card">
+
+        <div class="gst">
+            ◈ GSTIN : 08CBHPM5140D1ZV ◈
+        </div>
+
+
+        <div class="phone">
+
+            <span>📱 9784909266</span>
+
+            <span>📱 9414806925</span>
+
+        </div>
+
+
+        <div class="address">
+
+            📍 1, Near Panchayat Bhawan Dhaneshwar,
+            NH-27, Dhaneshwar,
+            Distt. Bundi (Raj.)
+
+        </div>
+
+
+        <div class="product-switcher">
+
+            <button
+                data-stone="granite"
+                class="active">
+                🪨 Granite
+            </button>
+
+            <button
+                data-stone="sandstone">
+                🏜️ Sandstone
+            </button>
+
+            <button
+                data-stone="marble">
+                🤍 Marble
+            </button>
+
+        </div>
+
+
+        <button
+            class="cta-btn"
+            id="quoteBtn">
+
+            🔥 Get a Quote
+
+        </button>
+
+    </div>
+
+
+    <div class="footer">
+
+        <span>
+            © 2026 New Jagdamba Stone Suppliers
+        </span>
+
+        <span>
+            E-Way Bill & Inv. No. Generating...
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- ================= MODE TOGGLE ================= -->
+
+<div class="mode-toggle" id="modeToggle">
+
+    <span class="mode-label" id="modeLabel">
+        3D
+    </span>
+
+    <div
+        class="toggle-track active"
+        id="toggleTrack">
+
+        <div class="thumb"></div>
+
+    </div>
+
+    <span class="mode-label">
+        2D
+    </span>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- THREE JS -->
+<!-- ========================================================= -->
+
+<script type="importmap">
+{
+    "imports":{
+        "three":"https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+}
+</script>
+
+
+<script type="module">
+
+import * as THREE from "three";
+
+import {
+    OrbitControls
+} from "three/addons/controls/OrbitControls.js";
+
+
+/* ================= DOM ================= */
+
+const container =
+    document.getElementById("canvas-container");
+
+const staticBg =
+    document.getElementById("static-bg");
+
+const loadingScreen =
+    document.getElementById("loading-screen");
+
+const toggleTrack =
+    document.getElementById("toggleTrack");
+
+const modeLabel =
+    document.getElementById("modeLabel");
+
+const quoteBtn =
+    document.getElementById("quoteBtn");
+
+
+/* ================= SCENE ================= */
+
+const scene =
+    new THREE.Scene();
+
+scene.background =
+    new THREE.Color(0x1a1410);
+
+scene.fog =
+    new THREE.Fog(
+        0x1a1410,
+        5,
+        15
+    );
+
+
+/* ================= CAMERA ================= */
+
+const camera =
+    new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth /
+        window.innerHeight,
+        0.1,
+        1000
+    );
+
+camera.position.set(
+    6,
+    4,
+    10
+);
+
+
+/* ================= RENDERER ================= */
+
+const renderer =
+    new THREE.WebGLRenderer({
+        antialias:true,
+        alpha:false
+    });
+
+renderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+);
+
+renderer.setPixelRatio(
+    Math.min(
+        window.devicePixelRatio,
+        1.5
+    )
+);
+
+renderer.shadowMap.enabled = true;
+
+renderer.shadowMap.type =
+    THREE.PCFSoftShadowMap;
+
+renderer.toneMapping =
+    THREE.ACESFilmicToneMapping;
+
+renderer.toneMappingExposure = 1.2;
+
+container.appendChild(
+    renderer.domElement
+);
+
+
+/* ================= CONTROLS ================= */
+
+const controls =
+    new OrbitControls(
+        camera,
+        renderer.domElement
+    );
+
+controls.enableDamping = true;
+
+controls.dampingFactor = 0.05;
+
+controls.autoRotate = true;
+
+controls.autoRotateSpeed = 0.8;
+
+controls.minDistance = 4;
+
+controls.maxDistance = 20;
+
+controls.target.set(
+    0,
+    1,
+    0
+);
+
+
+/* ================= LIGHTING ================= */
+
+const ambient =
+    new THREE.AmbientLight(
+        0x404060,
+        0.4
+    );
+
+scene.add(ambient);
+
+
+const keyLight =
+    new THREE.DirectionalLight(
+        0xffdd99,
+        2.5
+    );
+
+keyLight.position.set(
+    5,
+    8,
+    5
+);
+
+keyLight.castShadow = true;
+
+scene.add(keyLight);
+
+
+const fillLight =
+    new THREE.DirectionalLight(
+        0x8899ff,
+        0.6
+    );
+
+fillLight.position.set(
+    -5,
+    0,
+    5
+);
+
+scene.add(fillLight);
+
+
+const rimLight =
+    new THREE.DirectionalLight(
+        0xffffff,
+        0.8
+    );
+
+rimLight.position.set(
+    -2,
+    1,
+    -8
+);
+
+scene.add(rimLight);
+
+
+const pointLight =
+    new THREE.PointLight(
+        0xe8c98b,
+        1,
+        10
+    );
+
+pointLight.position.set(
+    0,
+    3,
+    0
+);
+
+scene.add(pointLight);
+
+
+/* ================= MAIN STONE ================= */
+
+const stoneGeo =
+    new THREE.IcosahedronGeometry(
+        1.5,
+        1
+    );
+
+
+const stoneMat =
+    new THREE.MeshStandardMaterial({
+
+        color:0x8a6e4b,
+
+        roughness:0.85,
+
+        metalness:0.1,
+
+        flatShading:true,
+
+        emissive:0x2a1e14,
+
+        emissiveIntensity:0.1
+
+    });
+
+
+const mainStone =
+    new THREE.Mesh(
+        stoneGeo,
+        stoneMat
+    );
+
+mainStone.position.set(
+    0,
+    1.5,
+    0
+);
+
+mainStone.castShadow = true;
+
+mainStone.receiveShadow = true;
+
+scene.add(mainStone);
+
+
+/* ================= STONE EDGES ================= */
+
+const edges =
+    new THREE.EdgesGeometry(
+        stoneGeo
+    );
+
+const lineMat =
+    new THREE.LineBasicMaterial({
+        color:0xe8c98b,
+        transparent:true,
+        opacity:.25
+    });
+
+const wireframe =
+    new THREE.LineSegments(
+        edges,
+        lineMat
+    );
+
+mainStone.add(wireframe);
+
+
+/* ================= SMALL STONES ================= */
+
+const smallStoneMat =
+    new THREE.MeshStandardMaterial({
+
+        color:0x6b4c33,
+
+        roughness:.9,
+
+        metalness:0,
+
+        flatShading:true
+
+    });
+
+
+const positions = [
+
+    [-2.8,1,1.5],
+
+    [2.8,.5,-1.8],
+
+    [-1.5,3.2,-2.5],
+
+    [2,2.8,2.2],
+
+    [-3,2,-1]
+
+];
+
+
+const smallStones = [];
+
+
+positions.forEach(pos => {
+
+    const size =
+        .3 +
+        Math.random() * .4;
+
+    const geo =
+        new THREE.IcosahedronGeometry(
+            size,
+            1
+        );
+
+    const mesh =
+        new THREE.Mesh(
+            geo,
+            smallStoneMat
+        );
+
+    mesh.position.set(
+        pos[0],
+        pos[1],
+        pos[2]
+    );
+
+    mesh.castShadow = true;
+
+    mesh.receiveShadow = true;
+
+    scene.add(mesh);
+
+
+    smallStones.push({
+
+        mesh:mesh,
+
+        speed:
+            .5 +
+            Math.random() * .5,
+
+        axis:
+            new THREE.Vector3(
+                Math.random(),
+                Math.random(),
+                Math.random()
+            ).normalize(),
+
+        rotSpeed:
+            .01 +
+            Math.random() * .02,
+
+        offset:
+            Math.random() * 100,
+
+        baseY:
+            pos[1]
+
+    });
+
+});
+
+
+/* ================= PARTICLES ================= */
+
+const isMobile =
+    window.innerWidth < 700;
+
+
+const particleCount =
+    isMobile ? 250 : 800;
+
+
+const particlesGeo =
+    new THREE.BufferGeometry();
+
+
+const particlePos =
+    new Float32Array(
+        particleCount * 3
+    );
+
+
+for(
+    let i=0;
+    i<particleCount*3;
+    i+=3
+){
+
+    const r =
+        6 +
+        Math.random()*4;
+
+    const theta =
+        Math.random() *
+        Math.PI*2;
+
+    const phi =
+        Math.acos(
+            2*Math.random()-1
+        );
+
+
+    particlePos[i] =
+        Math.sin(phi) *
+        Math.cos(theta) *
+        r;
+
+    particlePos[i+1] =
+        Math.sin(phi) *
+        Math.sin(theta) *
+        r*.6 +
+        1.5;
+
+    particlePos[i+2] =
+        Math.cos(phi)*r;
+
+}
+
+
+particlesGeo.setAttribute(
+    "position",
+    new THREE.BufferAttribute(
+        particlePos,
+        3
+    )
+);
+
+
+const particlesMat =
+    new THREE.PointsMaterial({
+
+        color:0xc29b5e,
+
+        size:
+            isMobile ? .06 : .04,
+
+        transparent:true,
+
+        opacity:.5,
+
+        blending:
+            THREE.AdditiveBlending,
+
+        sizeAttenuation:true
+
+    });
+
+
+const particles =
+    new THREE.Points(
+        particlesGeo,
+        particlesMat
+    );
+
+scene.add(particles);
+
+
+/* ================= GROUND ================= */
+
+const groundGeo =
+    new THREE.CircleGeometry(
+        6,
+        32
+    );
+
+
+const groundMat =
+    new THREE.ShadowMaterial({
+        opacity:.4
+    });
+
+
+const ground =
+    new THREE.Mesh(
+        groundGeo,
+        groundMat
+    );
+
+ground.rotation.x =
+    -Math.PI/2;
+
+ground.position.y =
+    -.2;
+
+ground.receiveShadow = true;
+
+scene.add(ground);
+
+
+/* ================= GOLD RING ================= */
+
+const ringGeo =
+    new THREE.TorusGeometry(
+        2.8,
+        .03,
+        16,
+        100
+    );
+
+
+const ringMat =
+    new THREE.MeshStandardMaterial({
+
+        color:0xe8c98b,
+
+        emissive:0x5a3e1a,
+
+        emissiveIntensity:.2
+
+    });
+
+
+const ring =
+    new THREE.Mesh(
+        ringGeo,
+        ringMat
+    );
+
+ring.position.y = 1.5;
+
+ring.rotation.x =
+    Math.PI/3;
+
+ring.rotation.z = .2;
+
+scene.add(ring);
+
+
+/* ================= PRODUCT SWITCH ================= */
+
+const stoneButtons =
+    document.querySelectorAll(
+        ".product-switcher button"
+    );
+
+
+stoneButtons.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            stoneButtons.forEach(b =>
+                b.classList.remove("active")
+            );
+
+            button.classList.add("active");
+
+
+            const type =
+                button.dataset.stone;
+
+
+            if(type === "granite"){
+
+                stoneMat.color.set(
+                    0x8a6e4b
+                );
+
+                stoneMat.roughness =
+                    .85;
+
+            }
+
+
+            if(type === "sandstone"){
+
+                stoneMat.color.set(
+                    0xc58b52
+                );
+
+                stoneMat.roughness =
+                    .95;
+
+            }
+
+
+            if(type === "marble"){
+
+                stoneMat.color.set(
+                    0xd8d2c8
+                );
+
+                stoneMat.roughness =
+                    .3;
+
+            }
+
+        }
+    );
+
+});
+
+
+/* ================= QUOTE BUTTON ================= */
+
+quoteBtn.addEventListener(
+    "click",
+    () => {
+
+        const message =
+            "Hello, I want a quotation for stone.";
+
+        const whatsapp =
+            "https://wa.me/919784909266?text=" +
+            encodeURIComponent(message);
+
+        window.open(
+            whatsapp,
+            "_blank"
+        );
+
+    }
+);
+
+
+/* ================= NAV ================= */
+
+document
+.querySelectorAll(".nav-links span")
+.forEach(item => {
+
+    item.addEventListener(
+        "click",
+        () => {
+
+            const section =
+                item.dataset.section;
+
+            if(section === "Contact"){
+
+                window.open(
+                    "https://wa.me/919784909266",
+                    "_blank"
+                );
+
+                return;
+            }
+
+
+            if(section === "Services"){
+
+                alert(
+                    "🪨 Granite\n🏜️ Sandstone\n🤍 Marble\n\nStone Supplier & Contrac
